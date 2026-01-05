@@ -1,0 +1,239 @@
+STEP 1️⃣ – Initialize Project
+    mkdir nodejs-ts-crud
+    cd nodejs-ts-crud
+
+    npm init -y
+STEP 2️⃣ – Install Core Dependencies
+    npm install express
+    npm install -D \
+    typescript \
+    ts-node \
+    nodemon \
+    eslint \
+    prettier \
+    jest \
+    ts-jest \
+    @types/jest \
+    @types/node \
+    @types/express
+
+
+STEP 3️⃣ – TypeScript Configuration (CRITICAL)
+    tsconfig.json
+
+    {
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "CommonJS",
+        "rootDir": "src",
+        "outDir": "dist",
+
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+
+        "baseUrl": "./src",
+        "paths": {
+        "@/*": ["*"]
+        }
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "dist"]
+    }
+
+    📌 Why this matters
+
+    strict: true → forces better design
+    Absolute imports (@/) → cleaner architecture
+    Fewer runtime surprises
+
+STEP 4️⃣ – Base Folder Structure
+    Create this now, even if empty:
+
+    src/
+    ├── app.ts
+    ├── server.ts
+
+    ├── config/
+    ├── shared/
+    ├── modules/
+    ├── middlewares/
+
+    tests/
+
+    📌 This ensures architecture-first, not code-first.
+
+STEP 5️⃣ – Jest Setup (WITH 100% ENFORCEMENT)
+    jest.config.ts
+
+    import type { Config } from 'jest';
+
+    const config: Config = {
+    preset: 'ts-jest',
+    testEnvironment: 'node',
+
+    roots: ['<rootDir>/src', '<rootDir>/tests'],
+
+    collectCoverage: true,
+    collectCoverageFrom: [
+        'src/**/*.ts',
+        '!src/server.ts'
+    ],
+
+    coverageThreshold: {
+        global: {
+        branches: 100,
+        functions: 100,
+        lines: 100,
+        statements: 100
+        }
+    }
+    };
+
+    export default config;
+
+    📌 This is the heart of discipline
+    One uncovered line = ❌ build fail
+    This is how real teams enforce quality
+
+STEP 6️⃣ – Add NPM Scripts
+    package.json
+
+    {
+    "scripts": {
+        "dev": "nodemon src/server.ts",
+        "build": "tsc",
+        "lint": "eslint .",
+        "test": "jest",
+        "test:ci": "jest --runInBand",
+        "coverage": "jest --coverage"
+    }
+    }
+
+    📌 test:ci is slower but stable for pipelines
+
+STEP 7️⃣ – Dummy App Code (Minimal)
+    src/app.ts
+
+    import express from 'express';
+
+    export const app = express();
+
+    app.use(express.json());
+
+    app.get('/health', (_req, res) => {
+    res.status(200).json({ status: 'ok' });
+    });
+
+    src/server.ts
+    import { app } from './app';
+
+    const PORT = 3000;
+
+    app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    });
+
+STEP 8️⃣ – FIRST TEST (Pipeline Validation)
+    tests/health.test.ts
+    import request from 'supertest';
+    import { app } from '../src/app';
+
+    describe('Health check', () => {
+    it('should return 200', async () => {
+        const res = await request(app).get('/health');
+
+        expect(res.status).toBe(200);
+        expect(res.body.status).toBe('ok');
+    });
+    });
+
+    👉 Now run:
+    npm test
+
+        ✅ Coverage should be 100%
+        ❌ If not → we fix, not ignore
+
+STEP 9️⃣ – GitHub Actions (CI PIPELINE)
+    .github/workflows/ci.yml
+
+    name: CI
+
+    on:
+    pull_request:
+        branches: [main]
+
+    jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout code
+            uses: actions/checkout@v4
+
+        - name: Setup Node
+            uses: actions/setup-node@v4
+            with:
+            node-version: 18
+
+        - name: Install dependencies
+            run: npm ci
+
+        - name: Run tests with coverage
+            run: npm run test:ci
+
+    📌 If tests or coverage fail → PR ❌
+
+STEP 🔟 – GitHub Branch Protection (MANUAL BUT REQUIRED)
+
+    On GitHub:
+
+    Repo → Settings
+    Branches → Add rule
+    Branch name: main
+    Enable:
+    ✅ Require pull request
+    ✅ Require status checks
+    ✅ Select CI
+    ❌ No force push
+    ❌ No direct push
+    🔥 Now bad code physically cannot merge
+
+🧠 What You Just Achieved (Very Important)
+
+    You now have:
+
+    ✔ Real CI discipline
+    ✔ Coverage gate
+    ✔ PR enforcement
+    ✔ Test-first mindset
+    ✔ Company-grade foundation
+
+    Most devs never do this properly.
+
+npm install -D supertest @types/supertest
+
+
+🔹 STEP A – Create GitHub Repository
+Go to GitHub
+Click New Repository
+Repository name:
+nodejs-ts-crud
+
+
+Visibility: Private or Public (your choice)
+❌ Do NOT add README
+❌ Do NOT add .gitignore
+❌ Do NOT add license
+Click Create Repository
+
+🔹 STEP B – Initialize Git Locally
+Inside your project folder:
+git init
+git branch -M main
+git remote add origin https://github.com/<your-username>/nodejs-ts-crud.git
+git remote -v
+git add .
