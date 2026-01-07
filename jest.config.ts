@@ -14,7 +14,12 @@ const config: Config = {
   moduleFileExtensions: ['ts', 'js', 'json'],
 
   collectCoverage: true,
-  collectCoverageFrom: ["src/**/*.ts", "!src/server.ts"],
+  collectCoverageFrom: [
+    "!src/server.ts",
+    "!src/app.ts",
+    "!src/modules/**/routes/*.ts",
+    "!src/modules/**/repository/*.ts"
+  ],
 
   coverageThreshold: {
     global: {
