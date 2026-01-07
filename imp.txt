@@ -1,3 +1,17 @@
+| Phase   | Focus                         |
+| ------- | ----------------------------- |
+| Phase 0 | CI + PR checks + coverage     |
+| Phase 1 | Architecture + SOLID + DI     |
+| Phase 2 | MongoDB + Repository pattern  | migrate-mongo
+| Phase 3 | Advanced Jest (mocks, spies)  |
+| Phase 4 | Linting + Type-check gates    |
+| Phase 5 | Docker                        |
+| Phase 6 | AWS EC2                       |
+| Phase 7 | Horizontal scaling (EB / ALB) |
+
+
+Phase -0
+
 STEP 1️⃣ – Initialize Project
     mkdir nodejs-ts-crud
     cd nodejs-ts-crud
@@ -237,3 +251,8 @@ git branch -M main
 git remote add origin https://github.com/<your-username>/nodejs-ts-crud.git
 git remote -v
 git add .
+
+Phase-1:
+
+npm install express cors mongoose
+npm install -D typescript ts-node-dev jest ts-jest @types/jest @types/express @types/node supertest @types/supertest
