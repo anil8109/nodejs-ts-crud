@@ -252,7 +252,4 @@ git remote add origin https://github.com/<your-username>/nodejs-ts-crud.git
 git remote -v
 git add .
 
-Phase-1:
-
-npm install express cors mongoose
-npm install -D typescript ts-node-dev jest ts-jest @types/jest @types/express @types/node supertest @types/supertest
+change to make workflow file visible in github temp2.
