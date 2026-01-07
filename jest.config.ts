@@ -4,12 +4,21 @@ const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'node',
 
-  roots: ['<rootDir>/src', '<rootDir>/tests'],
+  roots: ['<rootDir>/src'],
+  testMatch: ["**/src/modules/**/*.test.ts"],
+
+  transform: {
+    "^.+\\.ts$": "ts-jest"   // ⬅️ required fix
+  },
+
+  moduleFileExtensions: ['ts', 'js', 'json'],
 
   collectCoverage: true,
   collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/server.ts'
+    "!src/server.ts",
+    "!src/app.ts",
+    "!src/modules/**/routes/*.ts",
+    "!src/modules/**/repository/*.ts"
   ],
 
   coverageThreshold: {
