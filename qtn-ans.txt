@@ -9,3 +9,5 @@ monckReturnThis
       lines: 100,
       statements: 100,
     },
+
+git pull origin main --no-rebase
