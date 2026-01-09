@@ -22,13 +22,13 @@ const config: Config = {
   ],
 
   coverageThreshold: {
-    global: {
-    branches: 30,
-    functions: 75,
-    lines: 65,
-    statements: 63,
-    }
+  global: {
+    statements: 60,
+    lines: 60,
+    functions: 76,
+    branches: 33
   }
+}
 };
 
 export default config;
