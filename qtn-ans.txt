@@ -1,6 +1,7 @@
 mockReturnValue
 mockResolvedValue
 monckReturnThis
+mockImplementation
 
  coverageThreshold: {
     global: {

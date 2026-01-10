@@ -17,16 +17,14 @@ const config: Config = {
   collectCoverageFrom: [
     "!src/server.ts",
     "!src/app.ts",
-    "!src/modules/**/routes/*.ts",
-    "!src/modules/**/repository/*.ts"
   ],
 
   coverageThreshold: {
   global: {
-    statements: 60,
-    lines: 60,
-    functions: 76,
-    branches: 33
+    statements: 100,
+    lines: 100,
+    functions: 100,
+    branches: 100
   }
 }
 };
