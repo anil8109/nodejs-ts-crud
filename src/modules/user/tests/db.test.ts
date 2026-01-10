@@ -5,7 +5,7 @@ jest.mock('mongoose');
 
 describe('Database Connection', () => {
   // We need to mock process.exit so it doesn't kill the test runner
-  const mockExit = jest.spyOn(process, 'exit').mockImplementation((code?: string | number | null) => {
+  const mockExit = jest.spyOn(process, 'exit').mockImplementation((_code?: string | number | null) => {
     return undefined as never; 
   });
 
