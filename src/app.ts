@@ -1,5 +1,4 @@
 import express from 'express';
-import healthRoutes from './modules/health/routes/health.route';
 import userRoutes from './modules/user/routes/user.routes';
 import { Request, Response, NextFunction } from 'express';
 import { AppError } from './modules/user/utils/AppError';
@@ -18,10 +17,8 @@ app.use((err: Error | AppError, _req: Request, res: Response, _next: NextFunctio
     // stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
   });
 });
-// app.use("/health", healthRoutes);
+app.use(express.json());
 app.use("/user", userRoutes);
 
-app.use(express.json());
-app.use("/health", healthRoutes);
 
 export default app;
